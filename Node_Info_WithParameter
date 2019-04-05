@@ -1,0 +1,43 @@
+import hudson.model.*
+
+def fileName = "NodeInfo.csv"
+def inputFile = new File("C:\\Users\\ABHISHEK\\.jenkins\\workspace\\Node_Info\\"+fileName)
+inputFile.write("Node,Status")
+inputFile.append("\n")
+
+println""
+
+def Nodename = build.buildVariableResolver.resolve("NodeName")
+println "$Nodename"
+println""
+
+def requiredNodes = Nodename.split(',')
+
+def status = 0;
+for( node in requiredNodes ) {
+  println "Searching for $node";
+  slave = Hudson.instance.slaves.find({it.name == node});
+  if (slave != null) {
+    computer = slave.getComputer();
+    if (computer.isOffline()) {
+      println "Slave $node found!";
+      println "Error! $node is offline.";
+     inputFile.append("$node,Offline")
+     inputFile.append("\n")
+      status = 1;
+    }
+    else {
+      println "Slave $node found!";
+      println "OK: $node is online";
+      inputFile.append("$node,Online")
+      inputFile.append("\n")
+    }
+  }
+  else {
+    println "Slave $node not found!";
+    inputFile.append("$node,Absent")
+    inputFile.append("\n")
+    status = 1;
+  }
+}
+status;
