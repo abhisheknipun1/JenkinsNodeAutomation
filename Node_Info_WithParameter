@@ -23,18 +23,21 @@ for( node in requiredNodes ) {
     if (computer.isOffline()) {
       println "Slave $node found!";
       println "Error! $node is offline.";
+      println""
      inputFile.append("$node,Offline")
      inputFile.append("\n")
     }
     else {
       println "Slave $node found!";
       println "OK: $node is online";
+      println""
       inputFile.append("$node,Online")
       inputFile.append("\n")
     }
   }
   else {
     println "Slave $node not found!";
+    println""
     inputFile.append("$node,Absent")
     inputFile.append("\n")
   }
