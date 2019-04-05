@@ -16,6 +16,7 @@ def requiredNodes = Nodename.split(',')
 def status = 0;
 for( node in requiredNodes ) {
   println""
+  node = node.trim()
   println "Searching for $node";
   slave = Hudson.instance.slaves.find({it.name == node});
   if (slave != null) {
