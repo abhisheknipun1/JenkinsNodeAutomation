@@ -8,5 +8,6 @@ for (aSlave in hudson.model.Hudson.instance.slaves) {
 println('====================');
   println('Marking "' + agentList + '" online from Master Jenkins UI');
     aSlave.getComputer().setTemporarilyOffline(false,null);
+    break;
 }
 }
