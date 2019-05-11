@@ -1,0 +1,12 @@
+String agentList = build.buildVariableResolver.resolve('Salve_Node')
+
+for (aSlave in hudson.model.Hudson.instance.slaves) {
+
+
+  if (aSlave.name == agentList) {
+
+println('====================');
+  println('Marking "' + agentList + '" online from Master Jenkins UI');
+    aSlave.getComputer().setTemporarilyOffline(false,null);
+}
+}
